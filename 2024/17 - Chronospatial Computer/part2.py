@@ -18,24 +18,24 @@ def get_output(a, instructions):
     output = []
     while instructions[i] != 5:
         opcode = instructions[i]
-        operand = instructions[i+1]
+        operand = instructions[i + 1]
         match opcode:
-            case 0: # adv
+            case 0:  # adv
                 a = a // (2 ** combo(a, b, c, operand))
-            case 1: # bxl
+            case 1:  # bxl
                 b = b ^ operand
-            case 2: # bst
+            case 2:  # bst
                 b = combo(a, b, c, operand) % 8
-            case 3: # jnz
+            case 3:  # jnz
                 i = operand
                 continue
-            case 4: # bxc
+            case 4:  # bxc
                 b = b ^ c
-            case 5: # out
+            case 5:  # out
                 return combo(a, b, c, operand) % 8
-            case 6: # bdv
+            case 6:  # bdv
                 b = a // (2 ** combo(a, b, c, operand))
-            case 7: # cdv
+            case 7:  # cdv
                 c = a // (2 ** combo(a, b, c, operand))
         i += 2
     return combo(a, b, c, instructions[i + 1]) % 8

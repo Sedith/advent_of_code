@@ -2,7 +2,7 @@ def expand_stone(stone):
     if stone == '0':
         return ['1']
     elif not len(stone) % 2:
-        n = int(len(stone)/2)
+        n = int(len(stone) / 2)
         return [stone[:n], str(int(stone[n:]))]
     else:
         return [str(int(stone) * 2024)]
@@ -12,7 +12,7 @@ def expand_rec(max_depth, depth, stone):
     if depth == max_depth:
         return 1
     else:
-        return sum([expand_rec(max_depth, depth+1, s) for s in expand_stone(stone)])
+        return sum([expand_rec(max_depth, depth + 1, s) for s in expand_stone(stone)])
 
 
 def main(data):

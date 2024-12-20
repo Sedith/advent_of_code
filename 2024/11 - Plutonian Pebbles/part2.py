@@ -5,7 +5,7 @@ def expand_stone(stone):
     if stone == '0':
         return ['1']
     elif not len(stone) % 2:
-        n = int(len(stone)/2)
+        n = int(len(stone) / 2)
         return [stone[:n], str(int(stone[n:]))]
     else:
         return [str(int(stone) * 2024)]
@@ -20,7 +20,7 @@ def expand_rec(mem, max_depth, depth, stone):
         if stone in mem.keys() and depth in mem[stone].keys():
             return mem[stone][depth]
         else:
-            val = sum([expand_rec(mem, max_depth, depth+1, s) for s in expand_stone(stone)])
+            val = sum([expand_rec(mem, max_depth, depth + 1, s) for s in expand_stone(stone)])
             mem[stone].update({depth: val})
             return val
 
