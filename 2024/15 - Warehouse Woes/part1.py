@@ -15,19 +15,12 @@ class Dir(Enum):
 
 
 class Pos(tuple):
-    def __new__(cls, i, j, grid_size):
+    def __new__(cls, i, j):
         return super(Pos, cls).__new__(cls, (i, j))
-
-    def __init__(self, i, j, grid_size):
-        self.grid_size = grid_size
 
     def __add__(self, d):
         di, dj = d.move()
-        i = self[0] + di
-        j = self[1] + dj
-        if i in [-1, self.grid_size[0]] or j in [-1, self.grid_size[1]]:
-            return None
-        return Pos(i, j, self.grid_size)
+        return Pos(self[0] + di, self[1] + dj)
 
 
 class Grid:
@@ -39,7 +32,7 @@ class Grid:
                 robot = len(grid_lines), j
             grid_lines.append(l)
         self.grid = [[c for c in l] for l in grid_lines]
-        self.robot = Pos(robot[0], robot[1], (len(self.grid), len(self.grid[0])))
+        self.robot = Pos(robot[0], robot[1])
 
         char_to_dir = {'^': Dir.N, '>': Dir.E, 'v': Dir.S, '<': Dir.W}
         self.moves = [char_to_dir[c] for l in data for c in l]
