@@ -10,27 +10,27 @@ class Dir(Enum):
     def next(self):
         return Dir((self.value + 1) % 4)
 
+    def move(self):
+        return ((-1, 0), (0, 1), (1, 0), (0, -1))[self.value]
 
-class Idx(tuple):
+    def __str__(self):
+        return ('^', '>', 'v', '<')[self.value]
+
+
+class Pos(tuple):
     def __new__(cls, i, j, grid_size):
-        return super(Idx, cls).__new__(cls, (i, j))
+        return super(Pos, cls).__new__(cls, (i, j))
 
     def __init__(self, i, j, grid_size):
         self.grid_size = grid_size
 
     def __add__(self, d):
-        i, j = self
-        if d == Dir.W:
-            j -= 1
-        elif d == Dir.E:
-            j += 1
-        if d == Dir.N:
-            i -= 1
-        elif d == Dir.S:
-            i += 1
+        di, dj = d.move()
+        i = self[0] + di
+        j = self[1] + dj
         if i in [-1, self.grid_size[0]] or j in [-1, self.grid_size[1]]:
             return None
-        return Idx(i, j, self.grid_size)
+        return Pos(i, j, self.grid_size)
 
 
 class Grid:
@@ -40,13 +40,13 @@ class Grid:
         self.nb_X = 0
         self.marker_X = '\033[31mX\033[0m'
 
-    def get(self, idx):
-        return self.grid[idx[0]][idx[1]]
+    def get(self, pos):
+        return self.grid[pos[0]][pos[1]]
 
-    def mark(self, idx):
-        if self.get(idx) != self.marker_X:
+    def mark(self, pos):
+        if self.get(pos) != self.marker_X:
             self.nb_X += 1
-            self.grid[idx[0]][idx[1]] = self.marker_X
+            self.grid[pos[0]][pos[1]] = self.marker_X
 
     def __str__(self):
         return ''.join(''.join(line) + '\n' for line in self.grid)[:-1]
@@ -64,14 +64,14 @@ def main(data):
             pass
 
     dir = Dir(0)
-    guard = Idx(i, j, grid.size)
+    guard = Pos(i, j, grid.size)
 
     ## increment guard path
     while guard is not None:
         grid.mark(guard)
-        while (next_idx := guard + dir) is not None and grid.get(next_idx) == '#':
+        while (next_pos := guard + dir) is not None and grid.get(next_pos) == '#':
             dir = dir.next()
-        guard = next_idx
+        guard = next_pos
 
     return grid.nb_X
 
