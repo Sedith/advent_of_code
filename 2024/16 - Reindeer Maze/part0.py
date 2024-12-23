@@ -53,6 +53,7 @@ def display(data, path):
             return ' '
         else:
             return char
+
     grid = [[c for c in l] for l in data]
     for p in path[1:-1]:
         grid[p[0]][p[1]] = 'x'

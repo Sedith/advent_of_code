@@ -55,10 +55,10 @@ def dijkstra(grid, start, end):
     best = float('inf')
     while queue:
         dist, pos, dir, path = heappop(queue)
-        if dist > distances[pos,dir] or dist > best:
+        if dist > distances[pos, dir] or dist > best:
             continue
         else:
-            distances[pos,dir] = dist
+            distances[pos, dir] = dist
 
         if pos == end:
             seen += path
@@ -75,8 +75,8 @@ def dijkstra(grid, start, end):
 
 def main(data):
     grid = [[c for c in l] for l in data]
-    start, = (Pos(i,j) for i, l in enumerate(data) for j, c in enumerate(l) if c == 'S')
-    end, = (Pos(i,j) for i, l in enumerate(data) for j, c in enumerate(l) if c == 'E')
+    (start,) = (Pos(i, j) for i, l in enumerate(data) for j, c in enumerate(l) if c == 'S')
+    (end,) = (Pos(i, j) for i, l in enumerate(data) for j, c in enumerate(l) if c == 'E')
 
     score, path = dijkstra(grid, start, end)
     display(grid, path)
