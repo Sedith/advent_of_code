@@ -1,8 +1,7 @@
-w# Advent of code 2024 - Day 14: Restroom Redoubt
+# Advent of code 2024 - Day 14: Restroom Redoubt
 
 ## Part 1
 
-(Note: I've added the grid size in the example and input files)
 Implemted the list of robots with their pos and vel. The `move` function simulates one second of motion (using a modulo for the teleportation). Simply run the simulation for 100 steps and iterate over robots to count robots in each quadrant.
 
 ## Part 2

@@ -41,21 +41,16 @@ def count_quadrant(grid_size, robots):
 
 def parse(data):
     robots = []
-    if data[0].startswith('grid size'):
-        l = data.pop(0)
-        grid_size = list(map(int, l.split(': ')[1].split(',')))
-    else:
-        grid_size = (103, 101)
     for l in data:
         lp, lv = l.split()
         p = list(map(int, lp.split('=')[1].split(',')))
         v = list(map(int, lv.split('=')[1].split(',')))
         robots.append(Robot(p[::-1], v[::-1]))
-    return grid_size, robots
+    return robots
 
 
-def main(data):
-    grid_size, robots = parse(data)
+def main(data, grid_size):
+    robots = parse(data)
     for _ in range(100):
         for r in robots:
             r.move(grid_size)
@@ -71,7 +66,8 @@ if __name__ == '__main__':
     file = 'input.txt' if sys.argv[1:] else 'example.txt'
     with open(file, 'r') as f:
         data = f.read().splitlines()
-    result = main(data)
+    grid_size = (103, 101) if file == 'input.txt' else (7,11)
+    result = main(data, grid_size)
     toc = time.time()
     print(f'result   : {result}')
     print(f'time [s] : {toc - tic:.5f}')
