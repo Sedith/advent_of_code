@@ -51,22 +51,26 @@ def display(data, seen):
 def dijkstra(grid, start, end):
     distances = defaultdict(lambda: float('inf'))
     queue = [(0, start, Dir.E, [start])]
+    seen = []
+    best = float('inf')
     while queue:
         dist, pos, dir, path = heappop(queue)
-        if dist > distances[pos]:
+        if dist > distances[pos,dir] or dist > best:
             continue
         else:
-            distances[pos] = dist
+            distances[pos,dir] = dist
 
         if pos == end:
-            break
+            seen += path
+            best = dist
 
         for ndir, add_dist in [(dir, 1), (dir.cw(), 1001), (dir.ccw(), 1001)]:
             np = pos + ndir
             if grid[np[0]][np[1]] != '#':
                 heappush(queue, (dist + add_dist, np, ndir, path + [np]))
 
-    return distances[end], path
+    seen = set(seen)
+    return len(seen), seen
 
 
 def main(data):
