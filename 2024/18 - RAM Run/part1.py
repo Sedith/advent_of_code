@@ -22,15 +22,6 @@ class Dir(Enum):
         return ('^', '>', 'v', '<')[self.value]
 
 
-# class Pos(tuple):
-#     def __new__(cls, i, j):
-#         return super(Pos, cls).__new__(cls, (i, j))
-#
-#     def __add__(self, d):
-#         di, dj = d.move()
-#         return Pos(self[0] + di, self[1] + dj)
-
-
 class Pos(tuple):
     def __new__(cls, i, j, grid_size):
         return super(Pos, cls).__new__(cls, (i, j))
@@ -50,27 +41,25 @@ class Pos(tuple):
 def display(data, grid_size, path):
     grid = [['.' for _ in range(grid_size[0])] for _ in range(grid_size[1])]
     for l in data:
-        j,i = map(int, l.split(','))
+        j, i = map(int, l.split(','))
         grid[i][j] = '#'
     for p in path:
         grid[p[0]][p[1]] = '\033[31mx\033[0m'
     print(''.join([''.join([c for c in l]) + '\n' for l in grid])[:-1])
 
 
-
 def astar(data, grid_size):
     def h(p):
-        return (p[0] - end[0])**2 + (p[1] - end[1])**2
+        return (p[0] - end[0]) ** 2 + (p[1] - end[1]) ** 2
 
     grid = [[0 for _ in range(grid_size[0])] for _ in range(grid_size[1])]
     for l in data:
-        j,i = map(int, l.split(','))
+        j, i = map(int, l.split(','))
         grid[i][j] = 1
 
-    start = Pos(0,0, grid_size)
-    end = Pos(grid_size[0]-1, grid_size[1]-1, grid_size)
+    start = Pos(0, 0, grid_size)
+    end = Pos(grid_size[0] - 1, grid_size[1] - 1, grid_size)
     distances = defaultdict(lambda: float('inf'))
-
     queue = [(0, 0, start, [start])]
     while queue:
         hval, dist, pos, path = heappop(queue)
@@ -105,7 +94,7 @@ if __name__ == '__main__':
         data = f.read().splitlines()
     grid_size = 70 if file == 'input.txt' else 6
     nb_bytes = 1024 if file == 'input.txt' else 12
-    result = main(data[:nb_bytes], (grid_size+1, grid_size+1))
+    result = main(data[:nb_bytes], (grid_size + 1, grid_size + 1))
     toc = time.time()
     print(f'result   : {result}')
     print(f'time [s] : {toc - tic:.5f}')
