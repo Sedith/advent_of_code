@@ -1,11 +1,11 @@
+from functools import cache
+
+@cache
 def check_pattern(tokens, pattern):
     if not pattern:
-        return True
+        return 1
 
-    for t in tokens:
-        if pattern.startswith(t) and check_pattern(tokens, pattern[len(t):]):
-            return True
-    return False
+    return sum(check_pattern(tokens, pattern[len(t):]) for t in tokens if pattern.startswith(t))
 
 
 def main(data):
