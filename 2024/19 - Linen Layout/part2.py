@@ -1,5 +1,6 @@
 from functools import cache
 
+
 @cache
 def check_pattern(tokens, pattern):
     if not pattern:
