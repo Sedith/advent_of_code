@@ -6,7 +6,7 @@ def check_pattern(tokens, pattern):
     if not pattern:
         return 1
 
-    return sum(check_pattern(tokens, pattern[len(t):]) for t in tokens if pattern.startswith(t))
+    return sum(check_pattern(tokens, pattern[len(t) :]) for t in tokens if pattern.startswith(t))
 
 
 def main(data):

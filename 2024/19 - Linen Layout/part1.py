@@ -3,7 +3,7 @@ def check_pattern(tokens, pattern):
         return True
 
     for t in tokens:
-        if pattern.startswith(t) and check_pattern(tokens, pattern[len(t):]):
+        if pattern.startswith(t) and check_pattern(tokens, pattern[len(t) :]):
             return True
     return False
 
