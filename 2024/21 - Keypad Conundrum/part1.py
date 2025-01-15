@@ -4,9 +4,9 @@ def meta_code(code, keypad):
     for c in code:
         di = keypad[c][0] - keypad[pointer][0]
         dj = keypad[c][1] - keypad[pointer][1]
-        path = '<' * (-dj) + 'v' * di + '^' * (-di) + '>' * dj
+        path = '<' * (-dj) + 'v' * di + '>' * dj + '^' * (-di)
         ## invert path if it goes through the empty key
-        ## if its there, its at a 'corner' of the path so only 2 checks needed
+        ## if the empty key is there, its at a 'corner' of the path so only 2 checks needed
         if keypad[' '] in [(keypad[c][0], keypad[pointer][1]), (keypad[pointer][0], keypad[c][1])]:
             path = path[::-1]
         meta_code += path + 'A'
