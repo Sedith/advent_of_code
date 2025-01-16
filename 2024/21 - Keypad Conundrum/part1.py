@@ -1,16 +1,15 @@
 def meta_code(code, keypad):
     meta_code = ''
-    pointer = 'A'
-    for c in code:
-        di = keypad[c][0] - keypad[pointer][0]
-        dj = keypad[c][1] - keypad[pointer][1]
-        path = '<' * (-dj) + 'v' * di + '>' * dj + '^' * (-di)
-        ## invert path if it goes through the empty key
-        ## if the empty key is there, its at a 'corner' of the path so only 2 checks needed
-        if keypad[' '] in [(keypad[c][0], keypad[pointer][1]), (keypad[pointer][0], keypad[c][1])]:
+    for start, end in zip('A' + code[:-1], code):
+        di = keypad[end][0] - keypad[start][0]
+        dj = keypad[end][1] - keypad[start][1]
+        path = '<' * (-dj) + 'v' * di + '^' * (-di) + '>' * dj
+        ## invert path if it goes through the empty key, if the empty key is there, its at the 'corner'
+        if (path and path[0] in ['v', '^'] and keypad[' '] == (keypad[end][0], keypad[start][1])) or (
+            path and path[0] in ['<', '>'] and keypad[' '] == (keypad[start][0], keypad[end][1])
+        ):
             path = path[::-1]
         meta_code += path + 'A'
-        pointer = c
     return meta_code
 
 
@@ -23,11 +22,11 @@ def main(data):
     max_deg = 3
 
     sum_complexities = 0
-    for l in data:
-        code = l
+    for code in data:
+        numeric_part = int(code[:-1])
         for deg in range(max_deg):
             code = meta_code(code, dir_keypad if deg else num_keypad)
-        sum_complexities += int(l[:-1]) * len(code)
+        sum_complexities += numeric_part * len(code)
     return sum_complexities
 
 

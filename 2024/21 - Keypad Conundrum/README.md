@@ -17,3 +17,7 @@ Hence `<<^^A` is better than `^^<<A` because its direct translation has its `<` 
 In general, `<` should be prioritized, then `v` (same reasoning: because it is 2 keystokes away from `A` so it should happen first), then `>` or `^`.
 
 ## Part 2
+
+...It turns out that going to higher degrees (>= 5), `^` is more costly than `>`. This is because the former requires `<` which is more costly than the `v` required by the latter.
+Appart from than, its roughly part 1 with memoization. The exploration of the 'path tree' happens depth-wise and not length-wise as in part 1.
+The recursive function returns the length of the full path between successive characters.
