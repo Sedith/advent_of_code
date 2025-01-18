@@ -8,7 +8,7 @@ def iterate_secret_num(number, nb_iteration):
 
 def main(data):
     nb_iteration = 2000
-    return sum([iterate_secret_num(num, nb_iteration) for num in map(int,data)])
+    return sum([iterate_secret_num(num, nb_iteration) for num in map(int, data)])
 
 
 if __name__ == '__main__':

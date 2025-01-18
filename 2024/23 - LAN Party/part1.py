@@ -7,7 +7,7 @@ def find_3cliques(graph):
     for node in graph:
         neighbors = list(graph[node])
         for i, n1 in enumerate(neighbors):
-            for n2 in neighbors[i+1:]:  # pairs before i + 1 are already checked
+            for n2 in neighbors[i + 1 :]:  # pairs before i + 1 are already checked
                 if n2 in graph[n1]:
                     cliques.add(tuple(sorted([node, n1, n2])))
 

@@ -7,13 +7,8 @@ def bron_kerbosch(graph, r, p, x):
         return [r]
 
     cliques = []
-    for v in list(p): # iterate over a copy of p since its modified
-        cliques += bron_kerbosch(
-            graph,
-            r.union(set([v])),
-            p.intersection(graph[v]),
-            x.intersection(graph[v])
-        )
+    for v in list(p):  # iterate over a copy of p since its modified
+        cliques += bron_kerbosch(graph, r.union(set([v])), p.intersection(graph[v]), x.intersection(graph[v]))
         p.remove(v)
         x.add(v)
 
@@ -32,7 +27,6 @@ def main(data):
     lan = max(cliques, key=lambda x: len(x))
 
     return ''.join([f'{c},' for c in sorted(list(lan))])[:-1]
-
 
 
 if __name__ == '__main__':

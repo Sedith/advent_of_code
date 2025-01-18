@@ -13,10 +13,7 @@ def main(data):
             number = (number ^ (number * 64)) % 16777216
             number = (number ^ (number // 32)) % 16777216
             number = (number ^ (number * 2048)) % 16777216
-            changes.append(
-                - last_price
-                + (last_price := number % 10)
-            )
+            changes.append(-last_price + (last_price := number % 10))
             if i >= 4:
                 sequence = tuple(changes)
                 if sequence not in used_seqs:
