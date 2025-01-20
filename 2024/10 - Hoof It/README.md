@@ -1,5 +1,7 @@
 # Advent of code 2024 - Day 10: Hoof It
 
+https://adventofcode.com/2024/day/10
+
 ## Part 1
 
 (Reusing the Dir/Pos implementation for the grid from 2024/04.)

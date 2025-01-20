@@ -27,6 +27,8 @@ if __name__ == '__main__':
 template_readme = \
 """# Advent of code %s - Day %s: %s
 
+%s
+
 ## Part 1
 
 
@@ -39,7 +41,8 @@ if __name__ == '__main__':
     if len(sys.argv) >= 3:
         year, day = sys.argv[1], str(int(sys.argv[2]))
         day_2d = f'{int(day):02d}'
-        html = str(urllib.request.urlopen(f'https://adventofcode.com/{year}/day/{day}').read())
+        url = f'https://adventofcode.com/{year}/day/{day}'
+        html = str(urllib.request.urlopen(url).read())
         start = f'<article class="day-desc"><h2>--- Day {day}: '
         end = ' ---</h2><p>'
         title = re.compile(f"{re.escape(start)}(.*?){re.escape(end)}").findall(html)[0]
@@ -53,4 +56,4 @@ if __name__ == '__main__':
         with open(f'{folder}/part1.py', 'w') as f:
             f.write(template_python)
         with open(f'{folder}/README.md', 'w') as f:
-            f.write(template_readme % (year, day_2d, title))
+            f.write(template_readme % (year, day_2d, title, url))

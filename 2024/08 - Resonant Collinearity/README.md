@@ -1,5 +1,7 @@
 # Advent of code 2024 - Day 08: Resonant Collinearity
 
+https://adventofcode.com/2024/day/8
+
 ## Part 1
 
 The antennas are stored in a dict (key: antenna frequency, val: list of tuple of coordinates).

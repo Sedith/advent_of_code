@@ -1,5 +1,7 @@
 # Advent of code 2024 - Day 23: LAN Party
 
+https://adventofcode.com/2024/day/23
+
 ## Part 1
 
 After building the connection dictionnary, I realized that this was nothing but a [3-clique search problem](https://en.wikipedia.org/wiki/Clique_problem).
@@ -25,4 +27,4 @@ algorithm BronKerbosch1(R, P, X) is
 
 ```
 using sets (which provides `union` and `intersection` functions).
-A trick is that we need to iterate over `p` which gets modified. Thus we iterate over a copy, created using `list(p)` instead of importing the copy module. 
+A trick is that we need to iterate over `p` which gets modified. Thus we iterate over a copy, created using `list(p)` instead of importing the copy module.

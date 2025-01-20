@@ -1,5 +1,7 @@
 # Advent of code 2024 - Day 11: Plutonian Pebbles
 
+https://adventofcode.com/2024/day/11
+
 ## Part 1
 
 Straigthforward implementation. Tested both with recursion and for-loop.

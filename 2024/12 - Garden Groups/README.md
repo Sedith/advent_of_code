@@ -1,5 +1,7 @@
 # Advent of code 2024 - Day 12: Garden Groups
 
+https://adventofcode.com/2024/day/12
+
 ## Part 1
 
 Grid cell values are tuples `(bool, Pos)`, where the bool tells if the cell was already assigned to the region.

@@ -1,5 +1,7 @@
 # Advent of code 2024 - Day 22: Monkey Market
 
+https://adventofcode.com/2024/day/22
+
 ## Part 1
 
 Direct implementation of the secret number generation recipe.

@@ -1,5 +1,7 @@
 # Advent of code 2024 - Day 03: Mull It Over
 
+https://adventofcode.com/2024/day/3
+
 ## Part 1
 
 Basic regex parsing

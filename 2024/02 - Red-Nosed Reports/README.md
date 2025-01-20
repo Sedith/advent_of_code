@@ -1,5 +1,7 @@
 # Advent of code 2024 - Day 02: Red-Nosed Reports
 
+https://adventofcode.com/2024/day/2
+
 ## Part 1
 
 Straightforward implementation of the level checker: go through report lines, slide a window of the levels and check safety.

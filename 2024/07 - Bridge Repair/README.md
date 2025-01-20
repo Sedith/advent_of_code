@@ -1,5 +1,7 @@
 # Advent of code 2024 - Day 07: Bridge Repair
 
+https://adventofcode.com/2024/day/7
+
 ## Part 1
 
 Recursion on the list of possible outputs.

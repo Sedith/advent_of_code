@@ -1,5 +1,7 @@
 # Advent of code 2024 - Day 05: Print Queue
 
+https://adventofcode.com/2024/day/5
+
 ## Part 1
 
 The rules `a|b` are stored as `dict[a] = [b]`, assigning a list of latters to each former in the pairs.

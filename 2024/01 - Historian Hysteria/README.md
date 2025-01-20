@@ -1,9 +1,11 @@
 # Advent of code 2024 - Day 01: Historian Hysteria
 
+https://adventofcode.com/2024/day/1
+
 ## Part 1
 
 Simple one-to-one difference on the sorted lists.
-The fancy part is the reading of the input file as two lists of integers, in particular the list transpose `lists = list(map(list, zip(*lists)))`
+The fancy part is the reading of the input file as two lists of integers, in particular the list transpose `lists = list(map(list, zip(*lists)))`.
 
 ## Part 2
 

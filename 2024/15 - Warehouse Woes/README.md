@@ -1,5 +1,7 @@
 # Advent of code 2024 - Day 15: Warehouse Woes
 
+https://adventofcode.com/2024/day/15
+
 ## Part 1
 
 The grid is implemented as a list of list of chars, and the robot position is kept track of. The main function is the `move_rec(pos, dir)` method, moving the object at position `pos` in direction `dir`. If object is movable, it does it. If it would move into a box, it recursively tries to move the box in the next cell before coming back to the current cell.

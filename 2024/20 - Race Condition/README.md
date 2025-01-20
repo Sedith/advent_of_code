@@ -1,5 +1,7 @@
 # Advent of code 2024 - Day 20: Race Condition
 
+https://adventofcode.com/2024/day/20
+
 ## Part 1
 
 I first implemented some successive astar starting from spots 'on the other sides of a wall', until I understood that it was not a maze but a single track.

@@ -1,5 +1,7 @@
 # Advent of code 2024 - Day 25: Code Chronicle
 
+https://adventofcode.com/2024/day/25
+
 ## Part 1
 
 The algorithm is trivial: count free space for locks and occupied space for keys (column-wise) and check that all columns fit.

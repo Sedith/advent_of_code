@@ -1,5 +1,7 @@
 # Advent of code 2024 - Day 21: Keypad Conundrum
 
+https://adventofcode.com/2024/day/21
+
 ## Part 1
 
 Each key of each pad is allocated its coordinates starting from the topleft. Then, the path to reach the target key from the current one is obtained by checking the difference of coordinates.

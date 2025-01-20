@@ -1,5 +1,7 @@
 # Advent of code 2024 - Day 16: Reindeer Maze
 
+https://adventofcode.com/2024/day/16
+
 ## Part 0
 
 Mockup test with graph implementation of the maze and both Dijkstra and A* algorithms. It disregards the cost of turning 90°, and simply finds the shortest path in the maze with uniform edge length.

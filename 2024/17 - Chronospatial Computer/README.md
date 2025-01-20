@@ -1,5 +1,7 @@
 # Advent of code 2024 - Day 17: Chronospatial Computer
 
+https://adventofcode.com/2024/day/17
+
 ## Part 1
 
 The `run_program` function processes the instructions and modifies the register until it terminates. It spits out the list of output values.
@@ -18,4 +20,4 @@ Thus, given that the last value of a is known, one can:
 * compute the 8 printed output
 * for each output matching the target (self replication of the code, starting from the end), redo the same for the previous input until the first digit of the program or a dead-end.
 
-Implemented as a recursive function taking as input all the lists of chains of valid `a` and the index of the program digit to output. 
+Implemented as a recursive function taking as input all the lists of chains of valid `a` and the index of the program digit to output.

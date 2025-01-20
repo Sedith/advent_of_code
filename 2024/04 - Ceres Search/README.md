@@ -1,5 +1,7 @@
 # Advent of code 2024 - Day 04: Ceres Search
 
+https://adventofcode.com/2024/day/4
+
 ## Part 1
 
 Mostly a naive algorithm for pattern matching in the grid.
