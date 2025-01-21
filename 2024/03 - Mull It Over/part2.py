@@ -1,39 +1,14 @@
 import re
 
 
-mult_s = 'mul\(\d{1,3},\d{1,3}\)'
-do_s = 'do()'
-dont_s = 'don\'t()'
-
-
-def re_sol(input):
-    do_s_re = do_s.replace('(', '\(').replace(')', '\)')
-    dont_s_re = dont_s.replace('(', '\(').replace(')', '\)')
-
-    sum_mult = 0
-    do = True
-    for line in input:
-        nums = re.compile(f'{mult_s}|{do_s_re}|{dont_s_re}')
-        while (match := nums.search(line)) is not None:
-            match_str = match.group(0)
-            if match_str == do_s:
-                do = True
-            elif match_str == dont_s:
-                do = False
-            elif do:
-                n1, n2 = match_str[4:-1].split(',')
-                sum_mult += int(n1) * int(n2)
-            line = line[match.start() + len(match_str) :]
-    return sum_mult
-
-
-def manual_sol(input):
+def manual_solution(data):
+    data = data.splitlines()
     sum_mult = 0
     do = True
     last = ''
     n1 = ''
     n2 = ''
-    for line in input:
+    for line in data:
         for c in line:
             if c == 'd':
                 last = 'd'
@@ -81,9 +56,23 @@ def manual_sol(input):
     return sum_mult
 
 
+def parse_match(match):
+    global do
+    n1 = n2 = 0
+    if match.startswith('do('):
+        do = True
+    elif match.startswith('don'):
+        do = False
+    elif do:
+        n1, n2 = match[4:-1].split(',')
+    return int(n1) * int(n2) * do
+
+
 def main(data):
-    return re_sol(data)
-    # return manual_sol(data)
+    # return manual_solution(data)
+    global do
+    do = True
+    return sum([parse_match(m) for m in re.compile(r'mul\(\d{1,3},\d{1,3}\)|do\(\)|don\'t\(\)').findall(data)])
 
 
 if __name__ == '__main__':
@@ -93,7 +82,7 @@ if __name__ == '__main__':
     tic = time.time()
     file = 'input.txt' if sys.argv[1:] else 'example.txt'
     with open(file, 'r') as f:
-        data = f.read().splitlines()
+        data = f.read()
     result = main(data)
     toc = time.time()
     print(f'result   : {result}')
