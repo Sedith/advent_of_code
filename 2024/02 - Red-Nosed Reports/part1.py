@@ -1,26 +1,20 @@
 import math
 
 
-sign = lambda x: math.copysign(1, x)
+def check_levels(report):
+    for i in range(len(report) - 1):
+        diff = report[i + 1] - report[i]
+        sign = math.copysign(1, diff)
+        if i == 0:
+            crease = sign
+        if diff == 0 or abs(diff) > 3 or sign != crease:
+            return False
+    return True
 
 
 def main(data):
-    reports = [list(map(int, report.split())) for report in data]
-
-    safe = 0
-    for report in reports:
-        crease = None
-        ok = True
-        for level_0, level_1 in zip(report[:-1], report[1:]):
-            diff = level_1 - level_0
-            if crease is None:
-                crease = sign(diff)
-            if diff == 0 or abs(diff) > 3 or sign(diff) != crease:
-                ok = False
-                break
-        safe += ok
-
-    return safe
+    reports = [list(map(int, l.split())) for l in data]
+    return sum([check_levels(r) for r in reports])
 
 
 if __name__ == '__main__':

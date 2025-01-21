@@ -1,39 +1,26 @@
 import math
 
 
-sign = lambda x: math.copysign(1, x)
-
-
 def check_levels_rec(report, dampener_used):
-    crease = None
-    for i, (level_0, level_1) in enumerate(zip(report[:-1], report[1:])):
-        diff = level_1 - level_0
-        if crease is None:
-            crease = sign(diff)
-        if diff == 0 or abs(diff) > 3 or sign(diff) != crease:
+    for i in range(len(report) - 1):
+        diff = report[i + 1] - report[i]
+        sign = math.copysign(1, diff)
+        if i == 0:
+            crease = sign
+        if diff == 0 or abs(diff) > 3 or sign != crease:
             if dampener_used:
                 return False
-            elif i == 1:
-                return (
-                    check_levels_rec(report[:i] + report[i + 1 :], True)
-                    or check_levels_rec(report[: i + 1] + report[i + 2 :], True)
-                    or check_levels_rec(report[1:], True)
-                )
-            elif diff == 0:
-                return check_levels_rec(report[: i + 1] + report[i + 2 :], True)
-            else:
-                return check_levels_rec(report[:i] + report[i + 1 :], True) or check_levels_rec(report[: i + 1] + report[i + 2 :], True)
+            return (
+                check_levels_rec(report[:i] + report[i+1:], True)
+                or diff and check_levels_rec(report[:i+1] + report[i+2:], True)
+                or i == 1 and check_levels_rec(report[1:], True)
+            )
     return True
 
 
 def main(data):
-    reports = [list(map(int, report.split())) for report in data]
-
-    safe = 0
-    for report in reports:
-        safe += check_levels_rec(report, False)
-
-    return safe
+    reports = [list(map(int, l.split())) for l in data]
+    return sum([check_levels_rec(r, False) for r in reports])
 
 
 if __name__ == '__main__':
