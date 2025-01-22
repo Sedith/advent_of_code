@@ -72,7 +72,7 @@ def main(data):
     # return manual_solution(data)
     global do
     do = True
-    return sum([parse_match(m) for m in re.compile(r'mul\(\d{1,3},\d{1,3}\)|do\(\)|don\'t\(\)').findall(data)])
+    return sum(parse_match(m) for m in re.compile(r'mul\(\d{1,3},\d{1,3}\)|do\(\)|don\'t\(\)').findall(data))
 
 
 if __name__ == '__main__':

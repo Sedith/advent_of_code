@@ -1,5 +1,5 @@
 def naive_solution(l1, l2):
-    return sum([n1 * sum([n2 == n1 for n2 in l2]) for n1 in l1])
+    return sum(n1 * sum(n2 == n1 for n2 in l2) for n1 in l1)
 
 
 def better_solution(l1, l2):

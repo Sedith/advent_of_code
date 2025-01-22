@@ -20,7 +20,7 @@ def check_levels_rec(report, dampener_used):
 
 def main(data):
     reports = [list(map(int, l.split())) for l in data]
-    return sum([check_levels_rec(r, False) for r in reports])
+    return sum(check_levels_rec(r, False) for r in reports)
 
 
 if __name__ == '__main__':

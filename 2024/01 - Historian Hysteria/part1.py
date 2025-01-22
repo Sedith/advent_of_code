@@ -1,7 +1,7 @@
 def main(data):
     lists = map(lambda x: map(int, x.split()), data)
     lists = list(map(list, zip(*lists)))  # transpose
-    return sum([abs(n1 - n2) for n1, n2 in zip(*map(sorted, lists))])
+    return sum(abs(n1 - n2) for n1, n2 in zip(*map(sorted, lists)))
 
 
 if __name__ == '__main__':
