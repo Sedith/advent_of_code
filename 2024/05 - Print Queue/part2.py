@@ -1,42 +1,22 @@
 from collections import defaultdict
-from copy import copy
+from functools import cmp_to_key
 
 
-def check_update(rules, update):
-    fixed = copy(update)
-    i = 0
-    while i < len(update):
-        page = fixed[i]
-        for prev in rules[page]:
-            if prev not in fixed[:i]:
-                try:
-                    j = fixed[i:].index(prev)
-                    modif = True
-                    fixed[i] = prev
-                    fixed[i + j] = page
-                    i -= 1
-                    break
-                except ValueError:
-                    pass
-        i += 1
-    return fixed
+def fix(rules, update):
+    fixed = sorted(update, key=cmp_to_key(lambda a, b: -1 if a in update[: update.index(b)] else (1 if b in rules[a] else -1)))
+    return (fixed != update) * int(fixed[len(update) // 2])
 
 
 def main(data):
     ## build ordering dict
     rules = defaultdict(list)
-    while (rule := data.pop(0)) != '':
-        prev, next = rule.split('|')
-        rules[next].append(prev)
+    i = -1
+    while (data[i := i + 1]) != '':
+        before, after = data[i].split('|')
+        rules[after].append(before)
 
     ## check update
-    sum_of_mid = 0
-    for l in data:
-        update = l.split(',')
-        if (fixed := check_update(rules, update)) != update:
-            sum_of_mid += int(fixed[len(fixed) // 2])
-
-    return sum_of_mid
+    return sum(fix(rules, update) for update in map(lambda l: l.split(','), data[i + 1 :]))
 
 
 if __name__ == '__main__':

@@ -22,8 +22,8 @@ def main(data):
     lists = map(lambda x: map(int, x.split()), data)
     lists = list(map(list, zip(*lists)))  # transpose
 
-    # return naive_solution(*lists)  # 23ms
-    return better_solution(*lists)  # 1ms
+    # return naive_solution(*lists)  # ~23ms
+    return better_solution(*lists)  # ~1ms
 
 
 if __name__ == '__main__':

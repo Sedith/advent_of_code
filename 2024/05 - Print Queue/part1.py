@@ -1,29 +1,28 @@
 from collections import defaultdict
+from functools import cmp_to_key
 
 
-def check_update(rules, update):
-    for i, page in enumerate(update):
-        for prev in rules[page]:
-            if prev not in update[:i] and prev in update[i:]:
-                return False
-    return True
+def manual_check(rules, update):
+    is_fixed = not any(prev not in update[:i] and prev in update[i:] for i, page in enumerate(update) for prev in rules[page])
+    return is_fixed * int(update[len(update) // 2])
+
+
+def sort_based_check(rules, update):
+    fixed = sorted(update, key=cmp_to_key(lambda a, b: -1 if a in update[: update.index(b)] else (1 if b in rules[a] else -1)))
+    return (fixed == update) * int(update[len(update) // 2])
 
 
 def main(data):
     ## build ordering dict
     rules = defaultdict(list)
-    while (rule := data.pop(0)) != '':
-        prev, next = rule.split('|')
-        rules[next].append(prev)
+    i = -1
+    while (data[i := i + 1]) != '':
+        before, after = data[i].split('|')
+        rules[after].append(before)
 
     ## check update
-    sum_of_mid = 0
-    for l in data:
-        update = l.split(',')
-        if check_update(rules, update):
-            sum_of_mid += int(update[len(update) // 2])
-
-    return sum_of_mid
+    # return sum(manual_check(rules, update) for update in map(lambda l: l.split(','), data[i + 1 :]))  # ~8ms
+    return sum(sort_based_check(rules, update) for update in map(lambda l: l.split(','), data[i + 1 :]))  # ~2ms
 
 
 if __name__ == '__main__':
