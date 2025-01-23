@@ -17,11 +17,6 @@ def parse(data):
     return wires, instructions
 
 
-def zs_to_int(wires):
-    zs = {int(key[1:]): wires[key] for key in wires if key.startswith('z')}
-    return int(''.join([str(int(zs[key])) for key in sorted(zs, reverse=True)]), base=2)
-
-
 def main(data):
     wires, instructions = parse(data)
 
@@ -35,7 +30,8 @@ def main(data):
         else:
             instructions.append((in1, in2, op, out))
 
-    return zs_to_int(wires)
+    zs = {int(key[1:]): wires[key] for key in wires if key.startswith('z')}
+    return int(''.join([str(int(zs[key])) for key in sorted(zs, reverse=True)]), base=2)
 
 
 if __name__ == '__main__':
