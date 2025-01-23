@@ -5,9 +5,8 @@ def meta_code(code, keypad):
         dj = keypad[end][1] - keypad[start][1]
         path = '<' * (-dj) + 'v' * di + '^' * (-di) + '>' * dj
         ## invert path if it goes through the empty key, if the empty key is there, its at the 'corner'
-        if (path and path[0] in ['v', '^'] and keypad[' '] == (keypad[end][0], keypad[start][1])) or (
-            path and path[0] in ['<', '>'] and keypad[' '] == (keypad[start][0], keypad[end][1])
-        ):
+        if path and path[0] in ['v', '^'] and keypad[' '] == (keypad[end][0], keypad[start][1]) \
+        or path and path[0] in ['<', '>'] and keypad[' '] == (keypad[start][0], keypad[end][1]):
             path = path[::-1]
         meta_code += path + 'A'
     return meta_code
