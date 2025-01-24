@@ -4,7 +4,8 @@ https://adventofcode.com/2024/day/6
 
 ## Part 1
 
-Simple impletation based on the grid/idx/dir implemented for 2024/04.
+~Simple impletation based on the grid/idx/dir implemented for 2024/04.~
+Grid positions implemented as complex numbers.
 Increment the guard position until they leave the map.
 
 ## Part 2
@@ -17,11 +18,10 @@ There are several edge cases:
 * don't account for obstacles several times in the same location
 * consider collisions with the new obstacle as well (duh)
 
-Implementation of path as a dict whose key is the position and value is the list of directions the cell was crossed with.
-The virtual path exploration also creates its own path dict.
-For efficiency, the dict stores only path nodes, ie when there is a change of direction. This avoid building sparser dicts, since the explore function checks appartenance to the lists at each step.
-The full path is stored in a separate list to check that the obstructions.
+Implementation of path as a dict whose key is the position and value is the directions the cell was crossed with.
+The exploration path is a separate path dict.
 
+Notably, during the exploration, its only necessary to check for loops when hitting an obstacle.
 
 ## Part 2 v2
 
