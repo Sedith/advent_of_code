@@ -1,28 +1,13 @@
-def _rec_check(possibilies, numbers):
-    if not numbers:
-        return possibilies
-    if not possibilies:
-        possibilies.append(numbers[0])
-    else:
-        for i in range(len(possibilies)):
-            sum = possibilies[i] + numbers[0]
-            mul = possibilies[i] * numbers[0]
-            possibilies[i] = sum
-            possibilies.append(mul)
-    return _rec_check(possibilies, numbers[1:])
+def check_rec(poss, nums):
+    if not nums:
+        return poss
+    return check_rec([i for p in poss for i in [p + nums[0], p * nums[0]]], nums[1:])
 
 
 def main(data):
-    sum_calib = 0
-    for equation in data:
-        result, numbers = equation.split(':')
-        result = int(result)
-        numbers = list(map(int, numbers.split()))
-
-        possibilies = _rec_check([], numbers)
-        sum_calib += result * (result in possibilies)
-
-    return sum_calib
+    ops = ((r[0], n) for r, n in ([list(map(int, p.split())) for p in l.split(':')] for l in data))
+    # return sum(r for r, n in ops if r in check_rec([n[0]], n[1:]))
+    return [print(check_rec([n[0]], n[1:])) for r, n in ops]
 
 
 if __name__ == '__main__':

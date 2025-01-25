@@ -1,39 +1,19 @@
-from math import log
+from functools import reduce
 
 
-def concat(a, b):
-    return a * (10 ** int(log(b, 10) + 1)) + b
+def operations(a, b):
+    return a + b, a * b, a * (10 ** len(str(b))) + b
 
 
-def _rec_check(result, possibilies, numbers):
-    if not numbers:
-        return possibilies
-    else:
-        new_pos = []
-        for p in possibilies:
-            sum = p + numbers[0]
-            mul = p * numbers[0]
-            conc = concat(p, numbers[0])
-            if result >= sum:
-                new_pos.append(sum)
-            if result >= mul:
-                new_pos.append(mul)
-            if result >= conc:
-                new_pos.append(conc)
-
-    return _rec_check(result, new_pos, numbers[1:])
+def check_rec(res, poss, nums):
+    if not nums:
+        return poss
+    return check_rec(res, [i for p in poss for i in operations(p, nums[0]) if i <= res], nums[1:])
 
 
 def main(data):
-    sum_calib = 0
-    for equation in data:
-        result, numbers = equation.split(':')
-        result = int(result)
-        numbers = list(map(int, numbers.split()))
-
-        sum_calib += result * (result in _rec_check(result, [numbers[0]], numbers[1:]))
-
-    return sum_calib
+    ops = ((r[0], n) for r, n in ([list(map(int, p.split())) for p in l.split(':')] for l in data))
+    return sum(r for r, n in ops if r in check_rec(r, [n[0]], n[1:]))
 
 
 if __name__ == '__main__':

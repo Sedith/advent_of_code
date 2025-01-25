@@ -10,5 +10,7 @@ Recursion: for each possible value in the list, create 2 branches for sum and mu
 
 ## Part 2
 
-Mostly similar, with 3 operations. I tried minor operations, among which the branches are terminated if the current value is already bigger than the expected outcome.
-Didn't manage to reduce below ~3s.
+Mostly similar, with 3 operations.
+Computing the concatenation is faster using `len(str(b))` than using `int(log(b, 10) + 1)` (about 13%)
+The recursion branches are terminated if the curretn value is already bigger than the target result. Surprisingly, doing the same for part 1 slightly slows down the computation. I assume it's mostly the concatenation that triggers this condition.
+Didn't manage to reduce below ~2.5s.
