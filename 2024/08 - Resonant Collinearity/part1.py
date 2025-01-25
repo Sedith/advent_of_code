@@ -1,20 +1,15 @@
 from collections import defaultdict
 
 
-def node_in_grid(ij):
-    global grid_size
-    return ij[0] in range(grid_size[0]) and ij[1] in range(grid_size[1])
-
-
-def compute_antinodes(p1, p2):
+def antinodes(p1, p2):
     di = p1[0] - p2[0]
     dj = p1[1] - p2[1]
     return (p1[0] + di, p1[1] + dj), (p2[0] - di, p2[1] - dj)
 
 
 def main(data):
-    global grid_size
-    grid_size = (len(data), len(data[0]))
+    size = (len(data), len(data[0]))
+    in_grid = lambda p: 0 <= p[0] < size[0] and 0 <= p[1] < size[1]
 
     ## find list of antennas
     antennas = defaultdict(list)
@@ -24,14 +19,7 @@ def main(data):
                 antennas[c].append((i, j))
 
     ## compute antinodes
-    antinodes = set()
-    for key in antennas:
-        for ant1 in antennas[key]:
-            for ant2 in antennas[key]:
-                if ant1 != ant2:
-                    antinodes.update([n for n in compute_antinodes(ant1, ant2) if node_in_grid(n)])
-
-    return len(antinodes)
+    return len(set(n for key in antennas for ant1 in antennas[key] for ant2 in antennas[key] if ant1 != ant2 for n in antinodes(ant1, ant2) if in_grid(n)))
 
 
 if __name__ == '__main__':
