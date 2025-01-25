@@ -1,19 +1,21 @@
-from functools import reduce
+def check_rec(target, nums):
+    if len(nums) == 1:
+        return target == nums[0]
 
+    can_c = (t_str := str(target)).endswith(op_str := str(nums[-1]))
+    can_m = target % nums[-1] == 0
+    can_s = target >= nums[-1]
 
-def operations(a, b):
-    return a + b, a * b, a * (10 ** len(str(b))) + b
-
-
-def check_rec(res, poss, nums):
-    if not nums:
-        return poss
-    return check_rec(res, [i for p in poss for i in operations(p, nums[0]) if i <= res], nums[1:])
+    return (
+        can_c and check_rec(int('0' + t_str[: -len(op_str)]), nums[:-1])
+        or can_m and check_rec(target // nums[-1], nums[:-1])
+        or can_s and check_rec(target - nums[-1], nums[:-1])
+    )
 
 
 def main(data):
     ops = ((r[0], n) for r, n in ([list(map(int, p.split())) for p in l.split(':')] for l in data))
-    return sum(r for r, n in ops if r in check_rec(r, [n[0]], n[1:]))
+    return sum(r for r, n in ops if check_rec(r, n))
 
 
 if __name__ == '__main__':
